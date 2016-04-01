@@ -261,5 +261,24 @@ describe('ComponentResolverPlugin behavior', function() {
       }, 10);
     });
   });
+
+  context('when the folder separators does not match the OS default', function() {
+    // Check if this is a windows runtime or not
+    var WIN = /^win/.test(process.platform);
+    var _fixturesDir = WIN ? fixturesDir.replace(/\\/g,'/') : fixturesDir.replace(/\//g,'\\');
+
+    var request = {
+      request: _fixturesDir,
+      path: 'dir_with_file'
+    };
+
+    beforeEach(function() {
+      emulateAndExtract();
+    });
+
+    it('should resolve absolute paths which does not match the OS default', function(done) {
+      resolveFn(request, done);
+    });
+  });
 });
 

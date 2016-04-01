@@ -13,7 +13,7 @@ var ENCLOSING_DIR_PATTERN = WIN ? /(.+)\\.+$/ : /(.+)\/.+$/;
 
 var getResolveComponent = function(exts) {
   return function(request, callback) {
-    var enclosingDirPath = request.request || '';
+    var enclosingDirPath = (request.request&&path.normalize(request.request)) || '';
     if (!path.isAbsolute(enclosingDirPath)) {
       enclosingDirPath = path.join(request.path, enclosingDirPath);
     }
